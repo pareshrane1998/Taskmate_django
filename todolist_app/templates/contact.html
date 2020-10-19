@@ -5,8 +5,45 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container">
-        <h1>{{ contact_text }}</h1>
+<div class="container mt-3">
+    <!-- Feedback response -->
+    {% if message_name %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <strong>{{ message_name }}</strong> we received your email will contact you shortly...
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+<div class="col-12 col-md-8">
+    <div class="contact-form">
+      <!-- Section Heading -->
+      <div class="section-heading pt-4">
+        <h1>Get In Touch</h1>
+        <div class="line"></div>
+      </div>
+      <!-- Form -->
+      <form action="{% url 'contact' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="text" name="message-name" class="form-control mb-30" placeholder="Your Name">
+          </div>
+          <div class="col-lg-6">
+            <input type="email" name="message-email" class="form-control mb-30" placeholder="Your Email">
+          </div>
+          <div class="col-12 pt-3">
+            <textarea name="message" class="form-control mb-30" placeholder="Your Message"></textarea>
+          </div>
+          <div class="col-12 pt-3">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </div>
+      </form>
 
     </div>
+  </div>
+</div>
+</div>
+</div>
 {% endblock content %}

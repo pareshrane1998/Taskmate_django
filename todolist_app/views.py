@@ -5,6 +5,7 @@ from todolist_app.form import TaskForm
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 # Create your views here.
 @login_required
@@ -71,8 +72,22 @@ def index(request):
 
 
 def contact(request):
-    context = {"contact_text":"Welcome To Contact Page"}
-    return render(request,'contact.html',context)
+    if request.method == 'POST':
+        message_name = request.POST['message-name']
+        message_email = request.POST['message-email']
+        message = request.POST['message']
+
+        # send mail
+        send_mail(
+            message_name, # subject
+            message, # message
+            message_email, # from email (sender)
+            ["pareshr32@gmail.com"], # to email (receiver)
+            fail_silently=False,
+        )
+        return render(request,'contact.html',{'message_name':message_name})
+    else:
+        return render(request,'contact.html',{})
 
 def about(request):
     context = {"about_text":"Welcome About Page"}

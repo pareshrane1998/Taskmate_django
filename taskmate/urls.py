@@ -8,5 +8,5 @@ urlpatterns = [
     path('todolist/',include('todolist_app.urls')),
     path('account/',include('users_app.urls')),
     path('contact',todolist_view.contact,name='contact'),
-    path('about', todolist_view.about,name='about'),
+    path('about/', todolist_view.about,name='about'),
 ]
